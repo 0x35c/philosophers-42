@@ -6,7 +6,7 @@
 /*   By: ulayus <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 13:21:23 by ulayus            #+#    #+#             */
-/*   Updated: 2023/01/20 16:47:42 by ulayus           ###   ########.fr       */
+/*   Updated: 2023/01/23 10:25:07 by ulayus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <sys/time.h>
+# include <sys/types.h>
 # include <errno.h>
-# include <pthread.h>
 # include "struct.h"
 # define FORK 1
 # define EAT 2
@@ -30,8 +31,10 @@
 # define END_C "\x1b[0m"
 
 
-t_philo	*init_philo(char **av);
-void	display_philo_state(int philo, int timestamp, int flag);
-long	ft_atol(const char *nptr);
+t_philo_info	*init_philo_info(char **av);
+t_philo			*init_philo(t_philo_info *philo_info);
+void			display_philo_state(int philo, suseconds_t timestamp, int flag);
+void			ft_gettime(struct timeval *current_time, suseconds_t start_time);
+long			ft_atoul(const char *nptr);
 
 #endif

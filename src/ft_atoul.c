@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atol.c                                          :+:      :+:    :+:   */
+/*   ft_atoul.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ulayus <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 19:21:00 by ulayus            #+#    #+#             */
-/*   Updated: 2023/01/20 13:47:50 by ulayus           ###   ########.fr       */
+/*   Updated: 2023/01/23 09:27:50 by ulayus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <limits.h>
 
-long	ft_atol(const char *nptr)
+long	ft_atoul(const char *nptr)
 {
 	int		i;
 	int		sign;
@@ -34,7 +34,7 @@ long	ft_atol(const char *nptr)
 		result = result * 10 + (nptr[i] - 48);
 		i++;
 	}
-	if (result * sign > INT_MAX || result * sign < INT_MIN)
+	if (result * sign > INT_MAX || result * sign < 0)
 		return (-1);
 	return (result * sign);
 }

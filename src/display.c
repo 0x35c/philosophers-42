@@ -6,20 +6,26 @@
 /*   By: ulayus <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 16:30:41 by ulayus            #+#    #+#             */
-/*   Updated: 2023/01/20 16:38:03 by ulayus           ###   ########.fr       */
+/*   Updated: 2023/01/23 10:24:24 by ulayus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void	display_philo_state(int	philo, int timestamp, int flag)
+void	ft_gettime(struct timeval *current_time, suseconds_t start_time)
+{
+	gettimeofday(current_time, NULL);
+	current_time->tv_usec -= start_time;
+}
+
+void	display_philo_state(int philo, suseconds_t timestamp, int flag)
 {
 	if (flag == FORK)
-		printf(FORK_C"%d %d has taken a fork\n"END_C, timestamp, philo);
+		printf(FORK_C"%ld %d has taken a fork\n"END_C, timestamp, philo);
 	if (flag == EAT)
-		printf(EAT_C"%d %d is eating\n"END_C, timestamp, philo);
+		printf(EAT_C"%ld %d is eating\n"END_C, timestamp, philo);
 	if (flag == SLEEP)
-		printf(SLEEP_C"%d %d is sleeping\n"END_C, timestamp, philo);
+		printf(SLEEP_C"%ld %d is sleeping\n"END_C, timestamp, philo);
 	if (flag == THINK)
-		printf(THINK_C"%d %d is thinking\n"END_C, timestamp, philo);
+		printf(THINK_C"%ld %d is thinking\n"END_C, timestamp, philo);
 }
