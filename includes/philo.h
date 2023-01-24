@@ -6,7 +6,7 @@
 /*   By: ulayus <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 13:21:23 by ulayus            #+#    #+#             */
-/*   Updated: 2023/01/23 10:25:07 by ulayus           ###   ########.fr       */
+/*   Updated: 2023/01/24 10:17:28 by ulayus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,11 @@
 # define END_C "\x1b[0m"
 
 
-t_philo_info	*init_philo_info(char **av);
-t_philo			*init_philo(t_philo_info *philo_info);
-void			display_philo_state(int philo, suseconds_t timestamp, int flag);
-void			ft_gettime(struct timeval *current_time, suseconds_t start_time);
-long			ft_atoul(const char *nptr);
+t_info	*init_info(char **av);
+t_philo	*init_philo(t_info *info);
+void	display_philo_state(int philo, suseconds_t timestamp, int flag);
+void	ft_gettime(struct timeval *current_time, suseconds_t start_time);
+void	*routine(void *void_philo);
+long	ft_atoul(const char *nptr);
 
 #endif
