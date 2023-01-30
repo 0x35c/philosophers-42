@@ -6,13 +6,13 @@
 /*   By: ulayus <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 13:32:01 by ulayus            #+#    #+#             */
-/*   Updated: 2023/01/24 10:17:05 by ulayus           ###   ########.fr       */
+/*   Updated: 2023/01/30 14:58:52 by ulayus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-t_info	*init_info(char **av)
+t_info	*info_init(char **av)
 {
 	t_info	*info;
 
@@ -38,33 +38,46 @@ t_info	*init_info(char **av)
 	return (info);
 }
 
-t_philo	*init_philo(t_info *info)
+static t_philo	*init_philos_info(t_info *info)
 {
-	t_philo		*philos;
-	int			i;	
+	t_philo	*philos;
+	int		i;
 
 	philos = malloc(sizeof(t_philo) * info->nb_philo);
 	if (philos == NULL)
 		return (NULL);
 	i = 0;
-	gettimeofday(&info->current_time, NULL);
-	info->start_time = info->current_time.tv_usec;
-	while (i < info->nb_philo)
+	while (i < info->nb_philo - 1)
 	{
-		philos[i].info = info;
-		if (i % 2 == 1)
-			philos[i].state = FORK;
-		else
-			philos[i].state = THINK;
 		philos[i].philo_id = i + 1;
-		if (pthread_create(&(philos[i].pthread), NULL, &routine, &philos[i]) != 0)
+		philos[i].info = info;
+		if (pthread_mutex_init(&(philos[i].right_fork), NULL))
+			return (NULL);
+		if (i > 0)
+			philos[i].left_fork = &(philos[i - 1].right_fork);
+		i++;
+	}
+	philos[0].left_fork = &(philos[i - 1].right_fork);
+	return (philos);
+}
+
+t_philo	*philo_init(t_info *info)
+{
+	t_philo	*philos;
+	int		i;	
+
+	philos = init_philos_info(info);
+	i = 0;
+	while (i < info->nb_philo - 1)
+	{
+		if (pthread_create(&(philos[i].pthread), NULL, &routine, &philos[i]))
 			return (NULL);
 		i++;
 	}
 	i = 0;
-	while (i < info->nb_philo)
+	while (i < info->nb_philo - 1)
 	{
-		if (pthread_join(philos[i].pthread, NULL) != 0)
+		if (pthread_join(philos[i].pthread, NULL))
 			return (NULL);
 		i++;
 	}

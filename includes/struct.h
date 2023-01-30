@@ -6,7 +6,7 @@
 /*   By: ulayus <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 13:25:50 by ulayus            #+#    #+#             */
-/*   Updated: 2023/01/24 10:18:24 by ulayus           ###   ########.fr       */
+/*   Updated: 2023/01/30 14:15:28 by ulayus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,12 @@ typedef struct s_info
 
 typedef struct s_philo
 {
-	pthread_t	pthread;
-	int			state;
-	int			philo_id;
-	t_info		*info;
+	pthread_t		pthread;
+	int				state;
+	int				philo_id;
+	t_info			*info;
+	pthread_mutex_t	*left_fork;
+	pthread_mutex_t	right_fork;
 }				t_philo;
 
 #endif
