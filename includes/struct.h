@@ -6,13 +6,14 @@
 /*   By: ulayus <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 13:25:50 by ulayus            #+#    #+#             */
-/*   Updated: 2023/01/30 14:15:28 by ulayus           ###   ########.fr       */
+/*   Updated: 2023/02/06 19:52:24 by ulayus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
 # include <pthread.h>
+# include <stdbool.h>
 
 typedef struct s_info
 {
@@ -29,6 +30,7 @@ typedef struct s_philo
 {
 	pthread_t		pthread;
 	int				state;
+	bool			can_eat;
 	int				philo_id;
 	t_info			*info;
 	pthread_mutex_t	*left_fork;
