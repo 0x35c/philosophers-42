@@ -6,7 +6,7 @@
 /*   By: ulayus <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 13:32:01 by ulayus            #+#    #+#             */
-/*   Updated: 2023/01/30 14:58:52 by ulayus           ###   ########.fr       */
+/*   Updated: 2023/02/03 18:50:12 by ulayus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ static t_philo	*init_philos_info(t_info *info)
 	philos = malloc(sizeof(t_philo) * info->nb_philo);
 	if (philos == NULL)
 		return (NULL);
+	gettimeofday(&info->current_time, NULL);
+	info->start_time = info->current_time.tv_usec;
 	i = 0;
 	while (i < info->nb_philo - 1)
 	{
@@ -67,6 +69,8 @@ t_philo	*philo_init(t_info *info)
 	int		i;	
 
 	philos = init_philos_info(info);
+	if (philos == NULL)
+		return (NULL);
 	i = 0;
 	while (i < info->nb_philo - 1)
 	{
