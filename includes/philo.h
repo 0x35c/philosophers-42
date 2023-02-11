@@ -6,7 +6,7 @@
 /*   By: ulayus <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 13:21:23 by ulayus            #+#    #+#             */
-/*   Updated: 2023/01/30 15:03:06 by ulayus           ###   ########.fr       */
+/*   Updated: 2023/02/11 17:41:55 by ulayus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,19 @@
 # define EAT 2
 # define SLEEP 3
 # define THINK 4
+# define DIE 5
 # define FORK_C "\x1b[38;2;244;164;96m"
 # define EAT_C "\x1b[38;2;50;205;50m"
 # define SLEEP_C "\x1b[38;2;0;206;209m"
 # define THINK_C "\x1b[38;2;153;50;204m"
+# define DIE_C "\x1b[38;2;240;4;4m"
 # define END_C "\x1b[0m"
 
 
 t_info	*info_init(char **av);
 t_philo	*philo_init(t_info *info);
-void	display_philo_state(int philo, suseconds_t timestamp, int flag);
-void	ft_gettime(struct timeval *current_time, suseconds_t start_time);
+void	display_philo_state(int philo, t_info *info, int flag);
+int		ft_gettime(int start_time);
 void	*routine(void *void_philo);
 long	ft_atoul(const char *nptr);
 

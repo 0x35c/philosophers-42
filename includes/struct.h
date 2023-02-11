@@ -6,7 +6,7 @@
 /*   By: ulayus <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 13:25:50 by ulayus            #+#    #+#             */
-/*   Updated: 2023/02/06 19:52:24 by ulayus           ###   ########.fr       */
+/*   Updated: 2023/02/11 17:24:31 by ulayus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,19 @@ typedef struct s_info
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				nb_eat;
-	suseconds_t		start_time;
-	struct timeval	current_time;
+	int				start_time;
 }					t_info;
 
 typedef struct s_philo
 {
 	pthread_t		pthread;
-	int				state;
-	bool			can_eat;
+	bool			*death;
+	pthread_mutex_t	death_mutex;
 	int				philo_id;
+	int				last_meal;
 	t_info			*info;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	right_fork;
-}				t_philo;
+}					t_philo;
 
 #endif
