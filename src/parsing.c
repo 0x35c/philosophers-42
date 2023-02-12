@@ -6,11 +6,11 @@
 /*   By: ulayus <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 13:32:01 by ulayus            #+#    #+#             */
-/*   Updated: 2023/02/11 18:41:30 by ulayus           ###   ########.fr       */
+/*   Updated: 2023/02/12 15:38:55 by ulayus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "../include/philo.h"
 
 t_info	*info_init(char **av)
 {
@@ -64,6 +64,35 @@ static t_philo	*init_philos_info(t_info *info, pthread_mutex_t death_mutex, bool
 	}
 	philos[0].left_fork = &(philos[i - 1].right_fork);
 	return (philos);
+}
+
+void	philo_manager(t_philo *philos, t_info *info)
+{
+	int	i;
+
+	while (1)
+	{
+		i = 0;
+		while (i < info->nb_philo)
+		{
+			if (ft_gettime(philo[i]->info->start_time) - philo[i]->last_meal >= philo->info->time_to_die)
+			{
+				pthread_mutex_lock(&philo->death_mutex);
+				*philo->death = true;
+				pthread_mutex_unlock(&philo->death_mutex);
+				display_philo_state(philo->philo_id, philo->info, DIE);
+				return ;
+			}
+			pthread_mutex_lock(&philo->death_mutex);
+			if (*philo->death == true)
+			{
+				pthread_mutex_unlock(&philo->death_mutex);
+				return ;
+			}
+			pthread_mutex_unlock(&philo->death_mutex);
+			i++;
+		}
+	}
 }
 
 t_philo	*philo_init(t_info *info)

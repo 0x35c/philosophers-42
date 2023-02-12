@@ -6,11 +6,11 @@
 /*   By: ulayus <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 16:30:41 by ulayus            #+#    #+#             */
-/*   Updated: 2023/02/11 17:41:42 by ulayus           ###   ########.fr       */
+/*   Updated: 2023/02/12 11:05:08 by ulayus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "../include/philo.h"
 
 int	ft_gettime(int start_time)
 {
