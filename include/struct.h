@@ -6,7 +6,7 @@
 /*   By: ulayus <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 13:25:50 by ulayus            #+#    #+#             */
-/*   Updated: 2023/02/11 17:24:31 by ulayus           ###   ########.fr       */
+/*   Updated: 2023/02/21 18:57:55 by ulayus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,10 @@ typedef struct s_info
 typedef struct s_philo
 {
 	pthread_t		pthread;
-	bool			*death;
+	bool			death;
 	pthread_mutex_t	death_mutex;
+	bool			*print;
+	pthread_mutex_t	print_mutex;
 	int				philo_id;
 	int				last_meal;
 	t_info			*info;
