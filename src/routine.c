@@ -6,7 +6,7 @@
 /*   By: ulayus <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 09:57:14 by ulayus            #+#    #+#             */
-/*   Updated: 2023/02/22 14:07:20 by ulayus           ###   ########.fr       */
+/*   Updated: 2023/02/22 14:38:23 by ulayus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	*routine(void *void_philo)
 	}
 	philo->last_meal = 0;
 	if (philo->philo_id % 2 == 0)
-		usleep(100);
+		usleep(500);
 	while (1)
 	{
 		if (check_stop_conditions(philo) == true)
