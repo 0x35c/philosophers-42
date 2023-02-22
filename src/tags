@@ -34,15 +34,18 @@
 !_TAG_ROLE_DESCRIPTION!C!header	local	/local header/
 !_TAG_ROLE_DESCRIPTION!C!header	system	/system header/
 !_TAG_ROLE_DESCRIPTION!C!macro	undef	/undefined/
+check_death	manager.c	/^static bool	check_death(t_philo	*philo, int philo_id)$/;"	f	typeref:typename:bool	file:
+check_stop_conditions	routine.c	/^static int	check_stop_conditions(t_philo *philo)$/;"	f	typeref:typename:int	file:
 complete_eat_routine	routine.c	/^static void	complete_eat_routine(t_philo *philo)$/;"	f	typeref:typename:void	file:
 display_philo_state	display.c	/^void	display_philo_state(int philo_id, int flag, t_philo *philo)$/;"	f	typeref:typename:void
 ft_atoul	ft_atoul.c	/^long	ft_atoul(const char *nptr)$/;"	f	typeref:typename:long
 ft_gettime	display.c	/^int	ft_gettime(int start_time)$/;"	f	typeref:typename:int
-ft_usleep	display.c	/^void	ft_usleep(long time_to_wait, int time_to_die, t_philo *philo)$/;"	f	typeref:typename:void
+ft_usleep	display.c	/^void	ft_usleep(int time_to_wait, int time_to_die, t_philo *philo)$/;"	f	typeref:typename:void
 info_init	parsing.c	/^t_info	*info_init(char **av)$/;"	f	typeref:typename:t_info *
-init_philos_info	parsing.c	/^static t_philo	*init_philos_info(t_info *info, pthread_mutex_t death_mutex,$/;"	f	typeref:typename:t_philo *	file:
+init_mutex	parsing.c	/^static void	*init_mutex(t_info *info)$/;"	f	typeref:typename:void *	file:
+init_philos_info	parsing.c	/^static t_philo	*init_philos_info(t_info *info, bool *can_print)$/;"	f	typeref:typename:t_philo *	file:
 main	main.c	/^int	main(int ac, char **av)$/;"	f	typeref:typename:int
 make_philo_die	display.c	/^void	make_philo_die(t_philo *philo)$/;"	f	typeref:typename:void
 philo_init	parsing.c	/^t_philo	*philo_init(t_info *info)$/;"	f	typeref:typename:t_philo *
-philo_manager	parsing.c	/^void	philo_manager(t_philo *philos, t_info *info)$/;"	f	typeref:typename:void
+philo_manager	manager.c	/^void	philo_manager(t_philo *philos, t_info *info)$/;"	f	typeref:typename:void
 routine	routine.c	/^void	*routine(void *void_philo)$/;"	f	typeref:typename:void *

@@ -6,7 +6,7 @@
 /*   By: ulayus <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 13:32:01 by ulayus            #+#    #+#             */
-/*   Updated: 2023/02/22 11:00:06 by ulayus           ###   ########.fr       */
+/*   Updated: 2023/02/22 13:40:21 by ulayus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,10 @@ t_info	*info_init(char **av)
 	return (info);
 }
 
-static t_philo	*init_philos_info(t_info *info, bool *can_print)
+static void	*init_mutex(t_info *info)
 {
-	t_philo			*philos;
 	struct timeval	current_time;
-	int				i;
 
-	philos = malloc(sizeof(t_philo) * info->nb_philo);
-	if (philos == NULL)
-		return (NULL);
 	gettimeofday(&current_time, NULL);
 	if (pthread_mutex_init(&info->death_mutex, NULL))
 		return (NULL);
@@ -58,7 +53,21 @@ static t_philo	*init_philos_info(t_info *info, bool *can_print)
 		return (NULL);
 	if (pthread_mutex_init(&info->print_mutex, NULL))
 		return (NULL);
-	info->start_time = current_time.tv_sec % 1000 * 1000 + current_time.tv_usec / 1000;
+	info->start_time = current_time.tv_sec % 1000 * 1000
+		+ current_time.tv_usec / 1000;
+	return (info);
+}
+
+static t_philo	*init_philos_info(t_info *info, bool *can_print)
+{
+	t_philo			*philos;
+	int				i;
+
+	philos = malloc(sizeof(t_philo) * info->nb_philo);
+	if (philos == NULL)
+		return (NULL);
+	if (init_mutex(info) == NULL)
+		return (NULL);
 	i = 0;
 	while (i < info->nb_philo)
 	{
@@ -75,41 +84,6 @@ static t_philo	*init_philos_info(t_info *info, bool *can_print)
 	}
 	philos[0].left_fork = &(philos[i - 1].right_fork);
 	return (philos);
-}
-
-void	philo_manager(t_philo *philos, t_info *info)
-{
-	int	i;
-
-	while (1)
-	{
-		i = 0;
-		while (i < info->nb_philo)
-		{
-			pthread_mutex_lock(&philos[i].info->death_mutex);
-			if (philos[i].death == true)
-			{
-				pthread_mutex_lock(&philos[i].info->can_print_mutex);
-				*(philos[i].can_print) = false;
-				pthread_mutex_unlock(&philos[i].info->death_mutex);
-				pthread_mutex_unlock(&philos[i].info->can_print_mutex);
-				pthread_mutex_lock(&philos[i].info->print_mutex);
-				printf(DIE_C"%d %d died\n"END_C,
-					ft_gettime(philos[i].info->start_time), i + 1);
-				pthread_mutex_unlock(&philos[i].info->print_mutex);
-				return ;
-			}
-			pthread_mutex_unlock(&philos[i].info->death_mutex);
-			pthread_mutex_lock(&philos[i].info->nb_meal_mutex);
-			if (philos[i].nb_meal == philos[i].info->nb_meal)
-			{
-				pthread_mutex_unlock(&philos[i].info->nb_meal_mutex);
-				return ;
-			}
-			pthread_mutex_unlock(&philos[i].info->nb_meal_mutex);
-			i++;
-		}
-	}
 }
 
 t_philo	*philo_init(t_info *info)

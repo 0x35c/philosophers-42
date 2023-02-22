@@ -6,7 +6,7 @@
 /*   By: ulayus <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 16:30:41 by ulayus            #+#    #+#             */
-/*   Updated: 2023/02/22 10:57:18 by ulayus           ###   ########.fr       */
+/*   Updated: 2023/02/22 13:56:32 by ulayus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int	ft_gettime(int start_time)
 	struct timeval	current_time;
 
 	gettimeofday(&current_time, NULL);
-	time = (current_time.tv_sec % 1000 * 1000 + current_time.tv_usec / 1000) - start_time;
+	time = (current_time.tv_sec % 1000 * 1000 + current_time.tv_usec / 1000)
+		- start_time;
 	return (time);
 }
 
@@ -38,19 +39,13 @@ void	ft_usleep(int time_to_wait, int time_to_die, t_philo *philo)
 	timestamp = ft_gettime(philo->info->start_time) - start;
 	while (timestamp <= time_to_wait)
 	{
-		if (timestamp >= time_to_die)
+		if (timestamp >= time_to_die || ft_gettime(philo->info->start_time)
+			- philo->last_meal >= philo->info->time_to_die)
 		{
 			make_philo_die(philo);
 			break ;
 		}	
-		if (ft_gettime(philo->info->start_time) - philo->last_meal >= philo->info->time_to_die)
-		{
-			pthread_mutex_lock(&philo->info->death_mutex);
-			philo->death = true;
-			pthread_mutex_unlock(&philo->info->death_mutex);
-			break ;
-		}
-		usleep(400);
+		usleep(500);
 		timestamp = ft_gettime(philo->info->start_time) - start;
 	}
 }
