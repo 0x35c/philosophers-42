@@ -6,7 +6,7 @@
 /*   By: ulayus <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 16:30:41 by ulayus            #+#    #+#             */
-/*   Updated: 2023/02/21 18:57:44 by ulayus           ###   ########.fr       */
+/*   Updated: 2023/02/22 09:59:00 by ulayus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,25 +29,37 @@ void	make_philo_die(t_philo *philo)
 	pthread_mutex_unlock(&philo->death_mutex);
 }
 
-void	ft_usleep(long time_to_wait, int time_to_die, t_philo *philo)
+void	ft_usleep(int time_to_wait, int time_to_die, t_philo *philo)
 {
 	long	timestamp;
+	long	start;
 
-	timestamp = 0;
-	//printf("Total time to wait: %ld\n", time_to_wait);
+	start = ft_gettime(philo->info->start_time);
+	timestamp = ft_gettime(philo->info->start_time) - start;
+	//printf("Total time to die: %d\n", time_to_die);
+	//printf("Total time to wait: %d\n", time_to_wait);
+	//printf("Start value: %ld\n", start);
 	while (timestamp <= time_to_wait)
 	{
-		if (timestamp >= time_to_die * 500)
+		//printf("Timestamp value: %ld\n", timestamp);
+		if (timestamp >= time_to_die)
 		{
 			make_philo_die(philo);
 			//printf("NTM ANTO\n");
 			break ;
 		}	
+		if (ft_gettime(philo->info->start_time) - philo->last_meal >= philo->info->time_to_die)
+		{
+			pthread_mutex_lock(&philo->death_mutex);
+			philo->death = true;
+			pthread_mutex_unlock(&philo->death_mutex);
+			break ;
+		}
+		usleep(400);
+		timestamp = ft_gettime(philo->info->start_time) - start;
 		//printf("Waiting once...\n");
-		usleep(500);
-		timestamp += 500;
-		//printf("Timestamp value: %ld\n", timestamp);
 	}
+	//printf("Waitig once...\n");
 }
 
 void	display_philo_state(int philo_id, int flag, t_philo *philo)

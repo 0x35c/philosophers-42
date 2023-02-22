@@ -6,7 +6,7 @@
 /*   By: ulayus <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 13:21:23 by ulayus            #+#    #+#             */
-/*   Updated: 2023/02/21 18:58:06 by ulayus           ###   ########.fr       */
+/*   Updated: 2023/02/22 09:42:30 by ulayus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,6 @@ void	display_philo_state(int philo_id, int flag, t_philo *philo);
 int		ft_gettime(int start_time);
 void	*routine(void *void_philo);
 long	ft_atoul(const char *nptr);
-void	ft_usleep(long time_to_wait, int time_to_die, t_philo *philo);
+void	ft_usleep(int time_to_wait, int time_to_die, t_philo *philo);
 
 #endif

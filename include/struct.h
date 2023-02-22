@@ -6,7 +6,7 @@
 /*   By: ulayus <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 13:25:50 by ulayus            #+#    #+#             */
-/*   Updated: 2023/02/21 18:57:55 by ulayus           ###   ########.fr       */
+/*   Updated: 2023/02/22 10:26:31 by ulayus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ typedef struct s_info
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
-	int				nb_eat;
+	int				nb_meal;
 	int				start_time;
 }					t_info;
 
@@ -32,6 +32,8 @@ typedef struct s_philo
 	pthread_mutex_t	death_mutex;
 	bool			*print;
 	pthread_mutex_t	print_mutex;
+	int				nb_meal;
+	pthread_mutex_t	nb_meal_mutex;
 	int				philo_id;
 	int				last_meal;
 	t_info			*info;

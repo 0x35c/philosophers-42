@@ -6,7 +6,7 @@
 /*   By: ulayus <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 13:32:01 by ulayus            #+#    #+#             */
-/*   Updated: 2023/02/21 18:58:24 by ulayus           ###   ########.fr       */
+/*   Updated: 2023/02/22 10:29:42 by ulayus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ t_info	*info_init(char **av)
 	info->time_to_sleep = ft_atoul(av[4]);
 	if (av[5] != NULL)
 	{
-		info->nb_eat = ft_atoul(av[5]);
-		if (info->nb_eat == -1)
+		info->nb_meal = ft_atoul(av[5]);
+		if (info->nb_meal == -1)
 			return (NULL);
 	}
 	if (info->nb_philo == -1 || info->time_to_die == -1
@@ -39,7 +39,7 @@ t_info	*info_init(char **av)
 }
 
 static t_philo	*init_philos_info(t_info *info, pthread_mutex_t death_mutex,
-				pthread_mutex_t print_mutex, bool *print)
+				pthread_mutex_t print_mutex, pthread_mutex_t nb_meal_mutex, bool *print)
 {
 	t_philo			*philos;
 	struct timeval	current_time;
@@ -53,12 +53,14 @@ static t_philo	*init_philos_info(t_info *info, pthread_mutex_t death_mutex,
 	i = 0;
 	while (i < info->nb_philo)
 	{
+		philos[i].nb_meal = 0;
 		philos[i].philo_id = i + 1;
 		philos[i].info = info;
 		philos[i].death_mutex = death_mutex;
 		philos[i].death = false;
 		philos[i].print_mutex = print_mutex;
 		philos[i].print = print;
+		philos[i].nb_meal_mutex = nb_meal_mutex;
 		if (pthread_mutex_init(&(philos[i].right_fork), NULL))
 			return (NULL);
 		if (i > 0)
@@ -90,6 +92,13 @@ void	philo_manager(t_philo *philos, t_info *info)
 				return ;
 			}
 			pthread_mutex_unlock(&philos[i].death_mutex);
+			pthread_mutex_lock(&philos[i].nb_meal_mutex);
+			if (philos[i].nb_meal == philos[i].info->nb_meal)
+			{
+				pthread_mutex_unlock(&philos[i].nb_meal_mutex);
+				return ;
+			}
+			pthread_mutex_unlock(&philos[i].nb_meal_mutex);
 			i++;
 		}
 	}
@@ -100,15 +109,18 @@ t_philo	*philo_init(t_info *info)
 	t_philo			*philos;
 	pthread_mutex_t	death_mutex;
 	pthread_mutex_t	print_mutex;
+	pthread_mutex_t	nb_meal_mutex;
 	bool			print;
 	int				i;	
 
 	if (pthread_mutex_init(&death_mutex, NULL))
 		return (NULL);
+	if (pthread_mutex_init(&nb_meal_mutex, NULL))
+		return (NULL);
 	print = true;
 	if (pthread_mutex_init(&print_mutex, NULL))
 		return (NULL);
-	philos = init_philos_info(info, death_mutex, print_mutex, &print);
+	philos = init_philos_info(info, death_mutex, print_mutex, nb_meal_mutex, &print);
 	if (philos == NULL)
 		return (NULL);
 	i = 0;
