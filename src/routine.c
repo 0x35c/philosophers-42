@@ -6,7 +6,7 @@
 /*   By: ulayus <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 09:57:14 by ulayus            #+#    #+#             */
-/*   Updated: 2023/02/22 14:38:23 by ulayus           ###   ########.fr       */
+/*   Updated: 2023/02/23 11:48:44 by ulayus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,15 @@ static int	check_stop_conditions(t_philo *philo)
 		make_philo_die(philo);
 		return (true);
 	}
+	pthread_mutex_lock(&philo->info->can_print_mutex);
 	pthread_mutex_lock(&philo->info->death_mutex);
-	if (philo->death == true)
+	if (philo->death == true || *(philo->can_print) == false)
 	{
+		pthread_mutex_unlock(&philo->info->can_print_mutex);
 		pthread_mutex_unlock(&philo->info->death_mutex);
 		return (true);
 	}
+	pthread_mutex_unlock(&philo->info->can_print_mutex);
 	pthread_mutex_unlock(&philo->info->death_mutex);
 	complete_eat_routine(philo);
 	pthread_mutex_lock(&philo->info->nb_meal_mutex);
