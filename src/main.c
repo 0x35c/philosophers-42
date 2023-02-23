@@ -6,7 +6,7 @@
 /*   By: ulayus <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 13:17:31 by ulayus            #+#    #+#             */
-/*   Updated: 2023/02/22 14:51:10 by ulayus           ###   ########.fr       */
+/*   Updated: 2023/02/23 10:13:40 by ulayus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static bool	check_args(int ac, char **av)
 
 	if (ac < 5 || ac > 6)
 		return (false);
-	i = 0;
+	i = 1;
 	while (av[i] != NULL)
 	{
 		j = 0;
