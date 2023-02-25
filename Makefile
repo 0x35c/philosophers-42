@@ -6,13 +6,11 @@
 #    By: ulayus <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/30 11:40:22 by ulayus            #+#    #+#              #
-#    Updated: 2023/02/23 10:18:29 by ulayus           ###   ########.fr        #
+#    Updated: 2023/02/25 12:36:31 by ulayus           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
-
-BONUS = philo_bonus
 
 SRC = src/main.c src/ft_atoul.c src/parsing.c src/display.c\
 	  src/routine.c src/manager.c\
