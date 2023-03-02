@@ -6,7 +6,7 @@
 /*   By: ulayus <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 13:21:23 by ulayus            #+#    #+#             */
-/*   Updated: 2023/02/22 13:58:06 by ulayus           ###   ########.fr       */
+/*   Updated: 2023/03/02 11:12:39 by ulayus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,11 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <sys/time.h>
-# include <sys/types.h>
-# include <errno.h>
 # include "struct.h"
 # define FORK 1
 # define EAT 2
 # define SLEEP 3
 # define THINK 4
-# define DIE 5
 # define FORK_C "\x1b[38;2;244;164;96m"
 # define EAT_C "\x1b[38;2;50;205;50m"
 # define SLEEP_C "\x1b[38;2;0;206;209m"

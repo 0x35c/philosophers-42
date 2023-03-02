@@ -6,7 +6,7 @@
 /*   By: ulayus <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 13:17:31 by ulayus            #+#    #+#             */
-/*   Updated: 2023/02/23 10:13:40 by ulayus           ###   ########.fr       */
+/*   Updated: 2023/03/02 11:13:28 by ulayus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,13 @@ int	main(int ac, char **av)
 
 	if (check_args(ac, av) == false)
 	{
-		perror("Invalid arguments");
+		write(2, "Invalid arguments\n", 19);
 		return (1);
 	}
 	info = info_init(av);
 	if (info == NULL)
 	{
-		perror("Error");
+		write(2, "Error\n", 7);
 		return (2);
 	}
 	philos = philo_init(info);
