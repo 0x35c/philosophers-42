@@ -6,7 +6,7 @@
 /*   By: ulayus <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 13:17:31 by ulayus            #+#    #+#             */
-/*   Updated: 2023/03/08 14:31:22 by ulayus           ###   ########.fr       */
+/*   Updated: 2023/03/08 14:37:57 by ulayus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,10 @@ int	main(int ac, char **av)
 	}
 	philos = philo_init(&info);
 	if (philos == NULL)
+	{
+		write(2, "Error\n", 7);
 		return (3);
+	}
 	free(philos);
 	return (0);
 }
