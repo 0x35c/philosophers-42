@@ -6,19 +6,14 @@
 /*   By: ulayus <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 13:32:01 by ulayus            #+#    #+#             */
-/*   Updated: 2023/02/22 13:40:21 by ulayus           ###   ########.fr       */
+/*   Updated: 2023/03/08 14:32:14 by ulayus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-t_info	*info_init(char **av)
+bool	info_init(char **av, t_info *info)
 {
-	t_info	*info;
-
-	info = malloc(sizeof(t_info));
-	if (info == NULL)
-		return (NULL);
 	info->nb_philo = ft_atoul(av[1]);
 	info->time_to_die = ft_atoul(av[2]);
 	info->time_to_eat = ft_atoul(av[3]);
@@ -33,11 +28,8 @@ t_info	*info_init(char **av)
 		info->nb_meal = -2;
 	if (info->nb_philo == -1 || info->time_to_die == -1
 		|| info->time_to_eat == -1 || info->time_to_sleep == -1)
-	{
-		free(info);
-		return (NULL);
-	}
-	return (info);
+		return (false);
+	return (true);
 }
 
 static void	*init_mutex(t_info *info)

@@ -6,7 +6,7 @@
 /*   By: ulayus <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 19:21:00 by ulayus            #+#    #+#             */
-/*   Updated: 2023/01/23 09:27:50 by ulayus           ###   ########.fr       */
+/*   Updated: 2023/03/08 14:33:42 by ulayus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ long	ft_atoul(const char *nptr)
 		result = result * 10 + (nptr[i] - 48);
 		i++;
 	}
-	if (result * sign > INT_MAX || result * sign < 0)
+	if (result * sign > 2146473647 || result * sign < 0)
 		return (-1);
 	return (result * sign);
 }

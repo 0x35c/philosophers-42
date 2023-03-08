@@ -6,7 +6,7 @@
 /*   By: ulayus <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 13:17:31 by ulayus            #+#    #+#             */
-/*   Updated: 2023/03/02 11:13:28 by ulayus           ###   ########.fr       */
+/*   Updated: 2023/03/08 14:31:22 by ulayus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,23 +37,23 @@ static bool	check_args(int ac, char **av)
 int	main(int ac, char **av)
 {
 	t_philo	*philos;
-	t_info	*info;
+	t_info	info;
+	bool	check;
 
 	if (check_args(ac, av) == false)
 	{
 		write(2, "Invalid arguments\n", 19);
 		return (1);
 	}
-	info = info_init(av);
-	if (info == NULL)
+	check = info_init(av, &info);
+	if (check == false)
 	{
 		write(2, "Error\n", 7);
 		return (2);
 	}
-	philos = philo_init(info);
+	philos = philo_init(&info);
 	if (philos == NULL)
 		return (3);
-	free(info);
 	free(philos);
 	return (0);
 }
