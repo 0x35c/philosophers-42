@@ -6,7 +6,7 @@
 /*   By: ulayus <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 16:30:41 by ulayus            #+#    #+#             */
-/*   Updated: 2023/03/08 17:55:22 by ulayus           ###   ########.fr       */
+/*   Updated: 2023/03/11 12:36:42 by ulayus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ int	ft_gettime(int start_time)
 	struct timeval	current_time;
 
 	gettimeofday(&current_time, NULL);
-	time = (current_time.tv_sec % 1000 * 1000 + current_time.tv_usec / 1000) - start_time; return (time);
+	time = (current_time.tv_sec % 1000 * 1000 + current_time.tv_usec / 1000)
+		- start_time;
+	return (time);
 }
 
 void	make_philo_die(t_philo *philo)
